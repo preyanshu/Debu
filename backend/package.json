@@ -15,7 +15,9 @@
   "description": "",
   "dependencies": {
     "cors": "^2.8.5",
-    "mongoose": "^8.5.4"
+    "mongoose": "^8.5.4",
+    "@babel/cli": "^7.25.6",
+    "@babel/preset-env": "^7.25.4"
   },
   "devDependencies": {
     "@babel/cli": "^7.25.6",
