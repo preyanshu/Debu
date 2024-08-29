@@ -16,5 +16,8 @@
   "dependencies": {
     "cors": "^2.8.5",
     "mongoose": "^8.5.4"
+  },
+  "devDependencies": {
+    "rimraf": "^6.0.1"
   }
 }
