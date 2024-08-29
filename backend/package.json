@@ -18,6 +18,8 @@
     "mongoose": "^8.5.4"
   },
   "devDependencies": {
+    "@babel/cli": "^7.25.6",
+    "@babel/preset-env": "^7.25.4",
     "rimraf": "^6.0.1"
   }
 }
