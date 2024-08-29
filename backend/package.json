@@ -5,9 +5,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node index.js",
-    "build": "npm run clean && npm run compile",
+    "build": "npm run compile",
     "clean": "node -e \"require('fs').rmSync('dist', { recursive: true, force: true })\"",
-    "compile": "babel src --out-dir dist"
+    "compile": "babel . --out-dir dist --ignore node_modules"
   },
   "keywords": [],
   "author": "",
