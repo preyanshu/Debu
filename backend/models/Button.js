@@ -1,12 +1,10 @@
 // models/Button.js
+require("dotenv").config();
+const databaseUri = process.env.MONGO_DB;
 const mongoose = require("mongoose");
-mongoose
-  .connect(
-    "mongodb+srv://harjanidimps143:harjanidimps143@cluster0.zt41kf0.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
-  )
-  .then(() => {
-    console.log("Connected to MongoDB");
-  });
+mongoose.connect(databaseUri).then(() => {
+  console.log("Connected to MongoDB");
+});
 const ButtonSchema = new mongoose.Schema({
   width: { type: Number, default: 100 },
   height: { type: Number, default: 40 },
