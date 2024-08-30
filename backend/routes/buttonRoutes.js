@@ -41,6 +41,16 @@ router.get("/bulk", async (req, res) => {
       lastUpdated: button.lastUpdated,
     }));
 
+    // Set response headers
+    res.set({
+      "Content-Type": "application/json",
+      "Access-Control-Allow-Origin": "*", // Adjust this according to your CORS policy
+      "Cache-Control": "no-cache, no-store, must-revalidate", // Prevents caching
+
+      Pragma: "no-cache", // For HTTP/1.0 compatibility
+      Expires: "0", // Ensures the response is not cached
+    });
+    res.setHeader("Referrer-Policy", "no-referrer");
     // Send the response as JSON
     res.json(buttonData);
   } catch (error) {

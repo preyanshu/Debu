@@ -1,37 +1,63 @@
 import { useState, useEffect } from "react";
-import axios from "axios";
-import Card from "./cards";
+import Card from "./cards"; // Ensure this path is correct based on your project structure
 
 export const CardList = () => {
-  const [propsList, setPropsList] = useState([]);
+  const [buttons, setButtons] = useState([]);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const fetchData = async () => {
+    let isMounted = true; // Track if the component is mounted
+
+    const fetchButtons = async () => {
       try {
-        const response = await axios.get(
-          "http://localhost:3000/api/v2/buttons/bulk"
+        const response = await fetch(
+          "http://localhost:3000/api/v2/buttons/bulk",
+          {
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
         );
-        setPropsList(response.data);
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const data = await response.json();
+
+        if (isMounted) {
+          setButtons(data);
+        }
       } catch (error) {
         console.error("Error fetching button properties:", error);
-        setError("Failed to fetch button properties.");
+        if (isMounted) {
+          setError(
+            error.message ||
+              "Network error. Please check your connection or try again later."
+          );
+        }
       } finally {
-        setLoading(false);
+        if (isMounted) {
+          setLoading(false);
+        }
       }
     };
 
-    fetchData();
-  }, []);
+    fetchButtons();
+
+    return () => {
+      isMounted = false; // Clean up if the component unmounts
+    };
+  }, []); // Empty dependency array means this effect runs once on mount
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>{error}</p>;
 
   return (
     <div className="grid grid-cols-4 md:grid-cols-4 lg:grid-cols-5 gap-4 p-4">
-      {propsList.length > 0 ? (
-        propsList.map((Props) => <Card key={Props._id} buttonProps={Props} />)
+      {buttons.length > 0 ? (
+        buttons.map((button) => <Card key={button._id} buttonProps={button} />)
       ) : (
         <p>No button properties available</p>
       )}
