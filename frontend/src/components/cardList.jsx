@@ -12,7 +12,7 @@ export const CardList = () => {
     const fetchButtons = async () => {
       try {
         const response = await fetch(
-          "http://localhost:3000/api/v2/buttons/bulk",
+          "https://backend-sandy-ten.vercel.app/api/v2/buttons/bulk",
           {
             headers: {
               "Content-Type": "application/json",
